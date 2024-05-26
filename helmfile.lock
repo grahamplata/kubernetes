@@ -1,20 +1,14 @@
-version: v0.160.0
+version: v0.164.0
 dependencies:
 - name: cert-manager
   repository: https://charts.jetstack.io
-  version: v1.10.1
-- name: connect
-  repository: https://1password.github.io/connect-helm-charts
-  version: 1.10.0
+  version: v1.14.5
 - name: home-assistant
   repository: https://k8s-at-home.com/charts/
   version: 13.4.2
 - name: kube-prometheus-stack
   repository: https://prometheus-community.github.io/helm-charts
   version: 43.2.1
-- name: mosquitto
-  repository: https://k8s-at-home.com/charts/
-  version: 4.8.2
 - name: nfs-subdir-external-provisioner
   repository: https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
   version: 4.0.17
@@ -26,9 +20,9 @@ dependencies:
   version: 0.2.3
 - name: traefik
   repository: https://traefik.github.io/charts
-  version: 20.8.0
+  version: 28.1.0
 - name: uptime-kuma
   repository: https://helm.irsigler.cloud
   version: 2.17.0
-digest: sha256:29f2b7f554a383b87bd52307c7f3cdc4c392c686d17b960f90f0092c60bfbbdf
-generated: "2024-01-13T21:37:48.959356-05:00"
+digest: sha256:65e6492eec096282a4feaccec2e328d72eef972fc8b164043666f124200b154e
+generated: "2024-05-26T10:23:35.701641-04:00"

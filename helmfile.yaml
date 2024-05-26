@@ -47,14 +47,14 @@ releases:
   - name: cert-manager
     chart: jetstack/{{`{{ .Release.Name }}`}}
     namespace: "cert-manager"
-    version: v1.10.1
+    version: v1.14.5
     inherit:
       - template: default
 
   - name: traefik
     chart: traefik/{{`{{ .Release.Name }}`}}
     namespace: "traefik"
-    version: 20.8.0
+    version: 28.1.0
     inherit:
       - template: default
 
@@ -69,13 +69,6 @@ releases:
     chart: uptime-kuma/{{`{{ .Release.Name }}`}}
     namespace: "monitoring"
     version: 2.17.0
-    inherit:
-      - template: default
-
-  - name: connect
-    chart: 1password/{{`{{ .Release.Name }}`}}
-    namespace: "1password"
-    version: 1.10.0
     inherit:
       - template: default
 

@@ -1,5 +1,0 @@
-connect:
-  replicas: 1
-
-operator:
-  create: true

@@ -2,7 +2,6 @@
 *.dec
 .envrc
 .env
-bin/
 .idea/
 
 # Terraform

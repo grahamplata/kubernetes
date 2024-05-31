@@ -21,6 +21,13 @@ templates:
 # The desired states of Helm releases.
 # Helmfile runs various helm commands to converge the current state in the live cluster to the desired state defined here.
 releases:
+  # Simple App
+  - name: app
+    chart: charts/{{`{{ .Release.Name }}`}}
+    namespace: "default"
+    values:
+      - helm/environment/{{`{{ .Environment.Name }}`}}/{{`{{ .Release.Name }}`}}/values.yaml
+
   # Misc
   - name: raw
     chart: grahamplata/{{`{{ .Release.Name }}`}}

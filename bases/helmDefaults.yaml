@@ -1,11 +1,23 @@
 ---
 # helmDefaults
-# Values to set for args along with dedicated keys that can be set by contributers
 helmDefaults:
+  # Args to be passed to helm diff
+  diffArgs:
+    - "--suppress-secrets"
+  # Args to be passed to helm sync
+  syncArgs:
+    - "--labels=app.kubernetes.io/managed-by=helmfile"
+  # restores previous state in case of failed release (default false)
   atomic: true
+  # when true, cleans up any new resources created during a failed release (default false)
   cleanupOnFail: false
+  # limit the maximum number of revisions saved per release. Use 0 for no limit. (default 10)
+  historyMax: 10
+  # wait for k8s resources via --wait. (default false)
   wait: true
-  # 15min timeout
-  timeout: 900
+  # time in seconds to wait for any individual Kubernetes operation (like Jobs for hooks, and waits on pod/pvc/svc/deployment readiness) (default 300)
+  timeout: 120
   # Do not recreate pods during upgrade when not required
   recreatePods: false
+  # automatically create release namespaces if they do not exist (default true)
+  createNamespace: true

@@ -8,74 +8,70 @@ bases:
 # Uses Go templates for templating and the functions in the Sprig library.
 templates:
   default: &default
-    chart: stable/{{`{{ .Release.Name }}`}}
-    createNamespace: true
-    namespace: kube-system
+    # This prevents helmfile exiting when it encounters a missing file
+    # Valid values are "Error", "Warn", "Info", "Debug". The default is "Error"
+    # Use "Debug" to make missing files errors invisible at the default log level(--log-level=INFO)
     missingFileHandler: Warn
     values:
-      - helm/environment/{{`{{ .Environment.Name }}`}}/{{`{{ .Release.Name }}`}}/values.yaml
-      - helm/environment/{{`{{ .Environment.Name }}`}}/{{`{{ .Release.Name }}`}}/values.yaml.gotmpl
+      - release/environment/{{`{{ .Environment.Name }}`}}/{{`{{ .Release.Name }}`}}/values.yaml
+      - release/environment/{{`{{ .Environment.Name }}`}}/{{`{{ .Release.Name }}`}}/values.yaml.gotmpl
     secrets:
       - helm/environment/{{`{{ .Environment.Name }}`}}/{{`{{ .Release.Name }}`}}/secrets.yaml
+
+  # Local Chart inherits the default values but overrides the chart path
+  local: &local
+    chart: charts/{{`{{ .Release.Name }}`}}
+    <<: *default
 
 # The desired states of Helm releases.
 # Helmfile runs various helm commands to converge the current state in the live cluster to the desired state defined here.
 releases:
-  # Misc
-  - name: raw
-    chart: grahamplata/{{`{{ .Release.Name }}`}}
-    version: 0.2.3
-    inherit:
-      - template: default
+  # Simple App
+  - name: app
+    namespace: default
+    <<: *local
 
   # Applications
   - name: home-assistant
     chart: k8s-at-home/{{`{{ .Release.Name }}`}}
     namespace: "home-assistant"
     version: 13.4.2
-    inherit:
-      - template: default
+    <<: *default
 
   - name: photoprism
     chart: k8s-at-home/{{`{{ .Release.Name }}`}}
     namespace: "photoprism"
     version: 7.1.2
-    inherit:
-      - template: default
+    <<: *default
 
   # Ops
   - name: cert-manager
     chart: jetstack/{{`{{ .Release.Name }}`}}
     namespace: "cert-manager"
     version: v1.14.5
-    inherit:
-      - template: default
+    <<: *default
 
   - name: traefik
     chart: traefik/{{`{{ .Release.Name }}`}}
     namespace: "traefik"
     version: 28.1.0
-    inherit:
-      - template: default
+    <<: *default
 
   - name: kube-prometheus-stack
     chart: prometheus-community/{{`{{ .Release.Name }}`}}
     namespace: "monitoring"
     version: 43.2.1
-    inherit:
-      - template: default
+    <<: *default
 
   - name: uptime-kuma
     chart: uptime-kuma/{{`{{ .Release.Name }}`}}
     namespace: "monitoring"
-    version: 2.17.0
-    inherit:
-      - template: default
+    version: 2.18.0
+    <<: *default
 
     # Storage
   - name: nfs-subdir-external-provisioner
     chart: nfs-subdir-external-provisioner/{{`{{ .Release.Name }}`}}
     namespace: "nfs-server"
     version: 4.0.17
-    inherit:
-      - template: default
+    <<: *default

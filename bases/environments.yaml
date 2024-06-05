@@ -10,4 +10,5 @@ environments:
     kubeContext: k3s
   civo: {}
   gcp: {}
-  kind: {}
+  kind:
+    kubeContext: kind-kind

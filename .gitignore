@@ -2,7 +2,6 @@
 *.dec
 .envrc
 .env
-bin/
 .idea/
 
 # Terraform
@@ -11,3 +10,6 @@ tfplan
 .tfvars
 terraform.tfstate
 terraform.tfstate.backup
+
+# System Artifacts
+.DS_Store

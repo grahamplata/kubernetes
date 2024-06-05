@@ -26,3 +26,5 @@ repositories:
     url: https://traefik.github.io/charts
   - name: uptime-kuma
     url: https://helm.irsigler.cloud
+  - name: istio
+    url: https://istio-release.storage.googleapis.com/charts
